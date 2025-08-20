@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoursePlatform.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     [ApiController]
     public class AuthController(
         UserManager<ApplicationUser> userManager,
@@ -32,7 +32,6 @@ namespace CoursePlatform.Server.Controllers
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
 
-            // Sempre registra como Student por padrão
             if (!await roleManager.RoleExistsAsync("Student"))
                 await roleManager.CreateAsync(new ApplicationRole { Name = "Student" });
 

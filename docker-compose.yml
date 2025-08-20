@@ -1,0 +1,6 @@
+services:
+  courseplatform.server:
+    image: ${DOCKER_REGISTRY-}courseplatformserver
+    build:
+      context: .
+      dockerfile: CoursePlatform.Server/Dockerfile

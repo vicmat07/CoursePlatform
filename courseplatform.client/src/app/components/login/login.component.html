@@ -1,0 +1,33 @@
+<div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>Login</h2>
+
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+      <div *ngIf="f['email'].touched && f['email'].invalid" class="error">
+        <small *ngIf="f.email.errors?.['required']">Email é obrigatório.</small>
+        <small *ngIf="f.email.errors?.['email']">Formato inválido.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="password">Senha</label>
+      <input id="password" type="password" formControlName="password" />
+      <div *ngIf="f['password'].touched && f['password'].invalid" class="error">
+        <small *ngIf="f.password.errors?.['required']">Senha é obrigatória.</small>
+        <small *ngIf="f.password.errors?.['minlength']">
+          Mínimo de 6 caracteres.
+        </small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="loading || loginForm.invalid">
+      {{ loading ? 'Entrando...' : 'Entrar' }}
+    </button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
