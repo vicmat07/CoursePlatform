@@ -1,6 +1,7 @@
 using CoursePlatform.Server.Configuration;
 using CoursePlatform.Server.Domain;
 using CoursePlatform.Server.Domain.Abstractions;
+using CoursePlatform.Server.Middlewares;
 using CoursePlatform.Server.Models;
 using CoursePlatform.Server.Persistence;
 using CoursePlatform.Server.Services;
@@ -133,6 +134,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors("Client");
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandling();
 
 app.UseAuthentication();
 

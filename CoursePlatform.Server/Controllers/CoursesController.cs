@@ -28,6 +28,6 @@ namespace CoursePlatform.Server.Controllers
         public async Task<IActionResult> GetCourseDetailsById(int courseId)
         {
             return Ok();
-        };
+        }
     }
 }

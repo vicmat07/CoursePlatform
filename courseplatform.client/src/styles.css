@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 {
+    @apply text-3xl font-heading font-bold text-gray-800;
+  }
+  h2 {
+    @apply text-2xl font-heading font-semibold text-gray-700;
+  }
+  p {
+    @apply text-base font-sans text-gray-600 leading-relaxed;
+  }
+  
+  input, select, textarea {
+    @apply border rounded-lg px-3 py-2 w-full text-gray-800 focus:outline-none focus:ring-2 focus:ring-brand;
+  }
+  button {
+    @apply px-4 py-2 rounded-lg bg-brand text-white hover:bg-brand-light transition;
+  }
+}/* You can add global styles to this file, and also import other style files */

@@ -8,12 +8,18 @@ import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BaseUrlInterceptor } from './interceptors/base-url.interceptor';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    LoadingSpinnerComponent,
+    NavbarComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule, 

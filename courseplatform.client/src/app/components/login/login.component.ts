@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { finalize, tap } from 'rxjs';
+import { catchError, finalize, tap, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ export class LoginComponent {
 
   loginForm: FormGroup;
   loading = false;
-  errorMessage = '';
+  errorMessages: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -21,7 +21,7 @@ export class LoginComponent {
     private router: Router) { 
       this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      password: ['', [Validators.required]]
     });
     }
 
@@ -35,14 +35,19 @@ export class LoginComponent {
     }
 
     this.loading = true;
-    this.errorMessage = '';
+    this.errorMessages = [];
 
     const { email, password } = this.loginForm.value;
 
     this.authService.login(email, password)
       .pipe(
         tap(() => this.router.navigate(['dashboard'])),
-        finalize(() => this.loading = false)
+        catchError(err => {
+          if (err.status === 401){
+            this.errorMessages = ['Invalid credentials']
+          }
+          return throwError(() => err)
+        })
       )
       .subscribe()
   }

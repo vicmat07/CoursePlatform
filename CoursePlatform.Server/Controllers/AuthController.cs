@@ -20,7 +20,7 @@ namespace CoursePlatform.Server.Controllers
         {
             var existingUser = await userManager.FindByEmailAsync(request.Email);
             if (existingUser != null)
-                return BadRequest("Email already registered");
+                return BadRequest(new { description = "Email already registered" });
 
             var user = new ApplicationUser
             {
@@ -48,11 +48,11 @@ namespace CoursePlatform.Server.Controllers
         {
             var user = await userManager.FindByEmailAsync(request.Email);
             if (user == null)
-                return Unauthorized("Invalid user or password");
+                return Unauthorized(new { description = "Invalid user or password" });
 
             var isPasswordValid = await userManager.CheckPasswordAsync(user, request.Password);
             if (!isPasswordValid)
-                return Unauthorized("Invalid user or password");
+                return Unauthorized(new { description = "Invalid user or password" });
 
             var roles = await userManager.GetRolesAsync(user);
             var token = jwtService.GenerateToken(user, roles);
