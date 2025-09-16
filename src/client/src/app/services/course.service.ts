@@ -11,6 +11,6 @@ export class CourseService {
   constructor(private http: HttpClient) { }
 
   getCourses(): Observable<Array<Course>> {
-    return this.http.get<Array<Course>>('api/courses');
+    return this.http.get<Array<Course>>('courses');
   }
 }

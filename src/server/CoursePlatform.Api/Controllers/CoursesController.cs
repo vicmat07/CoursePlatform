@@ -1,6 +1,5 @@
 ﻿using CoursePlatform.Api.DTOs;
 using CoursePlatform.Application.Services;
-using CoursePlatform.Domain.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +7,6 @@ namespace CoursePlatform.Api.Controllers
 {
     [Route("api/courses")]
     [ApiController]
-    [Authorize]
     public class CoursesController(ICourseService courseService) : ControllerBase
     {
         [HttpGet]
@@ -20,6 +18,7 @@ namespace CoursePlatform.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateCourse([FromBody] CreateCourseRequest request)
         {
             return Created();

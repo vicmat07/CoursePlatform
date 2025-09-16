@@ -1,7 +1,7 @@
 ﻿using CoursePlatform.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoursePlatform.Infrastructure.Persistence
+namespace CoursePlatform.Infrastructure
 {
     internal class ApplicationDbContext : DbContext
     {
