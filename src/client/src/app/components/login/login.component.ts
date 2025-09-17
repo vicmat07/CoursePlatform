@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,14 +12,19 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class LoginComponent {
 
+  username: string | null = null;
   loading = false;
   errorMessages: string[] = [];
 
   constructor(
-    private keycloakService: KeycloakService, 
-    private router: Router) { }
+    public authService: AuthService
+  ) { }
 
-    onSubmit() {
-      this.keycloakService.login();
+  login(): void {
+    this.authService.login();
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

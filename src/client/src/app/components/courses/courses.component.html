@@ -2,15 +2,18 @@
   <h2>Courses</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div *ngFor="let course of (courses$ | async)" class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition">
+    <div *ngFor="let course of (courses$ | async)" class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition items-center">
       <h3 class="text-xl font-semibold mb-2">{{ course.title }}</h3>
       <p class="text-gray-600 mb-4">{{ course.description }}</p>
-      <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-        See Details
-      </button>
-      <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-        Enroll
-      </button>
+      <div class="flex gap-4">
+        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+          Enroll
+        </button>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+          See Details
+        </button>
+      </div>
+        
     </div>
   </div>
 </div>

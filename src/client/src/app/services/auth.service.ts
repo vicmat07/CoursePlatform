@@ -1,55 +1,53 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { finalize, Observable, tap } from 'rxjs';
+import { BehaviorSubject, finalize, Observable, tap } from 'rxjs';
 import { LoadingService } from './loading.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private tokenKey = 'authToken';
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  private usernameSubject = new BehaviorSubject<string | null>(null);
+  private rolesSubject = new BehaviorSubject<string[]>([]);
+
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  username$ = this.usernameSubject.asObservable();
+  roles$ = this.rolesSubject.asObservable();
 
   constructor(
-    private http: HttpClient,
-    private loadingService: LoadingService
-  ) {}
-
-  login(email: string, password: string): Observable<any> {
-    this.loadingService.show();
-    return this.http.post<any>('auth/login', { email, password })
-      .pipe(
-        tap(response => {
-          if (response && response.token) {
-            localStorage.setItem(this.tokenKey, response.token);
-          }
-        }),
-        finalize(() => this.loadingService.hide())
-      );
+    private keycloakService: KeycloakService
+  ) {
+    this.loadUserData();
   }
 
-  register(email: string, password: string): Observable<any> {
-    this.loadingService.show();
-    return this.http.post<any>('auth/register', { email, password })
-      .pipe(
-        tap(response => {
-           if (response && response.token) {
-            localStorage.setItem(this.tokenKey, response.token);
-          } 
-        }),
-        finalize(() => this.loadingService.hide())
-      )
+  async loadUserData() {
+    const loggedIn = await this.keycloakService.isLoggedIn();
+    this.isLoggedInSubject.next(loggedIn);
+
+    if (loggedIn) {
+      const profile = await this.keycloakService.loadUserProfile();
+      this.usernameSubject.next(profile.firstName || profile.username || null);
+
+      const roles = this.keycloakService.getUserRoles();
+      this.rolesSubject.next(roles);
+    } else {
+      this.usernameSubject.next(null);
+      this.rolesSubject.next([]);
+    }
+  }
+
+  login(): void {
+    this.keycloakService.login();
   }
 
   logout(): void {
-    localStorage.removeItem(this.tokenKey);
+    this.keycloakService.logout();
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.getToken();
+  register() {
+    this.keycloakService.register();
   }
 }

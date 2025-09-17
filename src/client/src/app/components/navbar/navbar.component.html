@@ -6,7 +6,7 @@
 
   <div class="flex gap-4 items-center">
 
-    <ng-container *ngIf="!authService.isLoggedIn(); else loggedIn">
+    <ng-container *ngIf="!(authService.isLoggedIn$ | async); else loggedIn">
       <a routerLink="/login" class="hover:text-gray-300">Login</a>
       <a routerLink="/register" class="hover:text-gray-300">Registrar</a>
     </ng-container>
