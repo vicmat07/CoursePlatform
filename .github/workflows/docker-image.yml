@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build Server Docker image
-      run: docker build src/server -f src/server/Dockerfile -t course-platform-server:$(date +%s)
+      run: docker build . -f src/server/Dockerfile -t course-platform-server:$(date +%s)
