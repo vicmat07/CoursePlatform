@@ -22,8 +22,8 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
     
     - name: Build Server Docker image
-      run: docker build . -f src/server/CoursePlatform.Api/Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/course-platform:latest
+      run: docker build . -f src/server/CoursePlatform.Api/Dockerfile -t ${{ secrets.DOCKERHUB_USERNAME }}/course-platform-server:latest
     
     - name: Push Docker image
       run: |
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/course-platform:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/course-platform-server:latest
