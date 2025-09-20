@@ -1,0 +1,20 @@
+name: Build & Push All
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  backend:
+    uses: ./.github/workflows/docker-build.yml
+    with:
+      context: .
+      dockerfile: ./src/server/CoursePlatform.Api/Dockerfile
+      image: course-platform-server
+
+  frontend:
+    uses: ./.github/workflows/docker-build.yml
+    with:
+      context: .
+      dockerfile: ./src/client/Dockerfile
+      image: course-platform-client
