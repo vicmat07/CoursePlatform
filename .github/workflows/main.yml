@@ -17,6 +17,6 @@ jobs:
     uses: ./.github/workflows/docker-build.yml
     secrets: inherit
     with:
-      context: .
-      dockerfile: ./src/client/Dockerfile
+      context: ./src/client
+      dockerfile: Dockerfile
       image: course-platform-client
