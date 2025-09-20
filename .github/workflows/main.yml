@@ -7,6 +7,7 @@ on:
 jobs:
   backend:
     uses: ./.github/workflows/docker-build.yml
+    secrets: inherit
     with:
       context: .
       dockerfile: ./src/server/CoursePlatform.Api/Dockerfile
@@ -14,6 +15,7 @@ jobs:
 
   frontend:
     uses: ./.github/workflows/docker-build.yml
+    secrets: inherit
     with:
       context: .
       dockerfile: ./src/client/Dockerfile
