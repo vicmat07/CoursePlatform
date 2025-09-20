@@ -18,5 +18,5 @@ jobs:
     secrets: inherit
     with:
       context: ./src/client
-      dockerfile: Dockerfile
+      dockerfile: ./src/client/Dockerfile
       image: course-platform-client
